@@ -15,9 +15,9 @@ services:
       - "CONANEXILES_Engine_OnlineSubSystemSteam_ServerPassword=MySecret"
       - "CONANEXILES_SERVER_TYPE=pve"
     ports:
-        - 7777:7777/udp
-        - 7778:7778/udp
-        - 27015:27015/udp
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+      - "27015:27015/udp"
     volumes:
-        - /home/conan/data:/conanexiles
+      - /home/conan/data:/conanexiles
     restart: unless-stopped

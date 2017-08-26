@@ -22,11 +22,11 @@ RUN echo \
  && pip install --no-cache-dir --upgrade pip \
  && pip install --no-cache-dir crudini \
 
-EXPOSE 7777/udp
-       27015/udp
-       27016/udp
-       37015/udp
-       37016/udp  
+EXPOSE 7777/udp \
+       27015/udp \
+       27016/udp \
+       37015/udp \
+       37016/udp
 
 VOLUME ["/conanexiles"]
 

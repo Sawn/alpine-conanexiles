@@ -17,7 +17,7 @@ RUN echo \
      unzip \
      xvfb \
      supervisor \
-     py3-pip \
+     py-pip \
      wine \
  && pip install --no-cache-dir --upgrade pip \
  && pip install --no-cache-dir crudini

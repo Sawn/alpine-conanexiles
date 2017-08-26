@@ -27,7 +27,7 @@ ServerSettings\
 "
 
 setup_bashrc() {
-    cat >> /bash.bashrc <<EOF
+    cat >> /etc/bash.bashrc <<EOF
 
 
 $_bashrc_tag_start
@@ -240,7 +240,7 @@ function override_config() {
 }
 
 
-grep "${_bashrc_tag_start}" /etc/bash.bashrc > /dev/null
+grep "${_bashrc_tag_start}" /tc/bash.bashrc > /dev/null
 [[ $? != 0 ]] && setup_bashrc
 
 steamcmd_setup

@@ -17,10 +17,10 @@ RUN echo \
      unzip \
      xvfb \
      supervisor \
-     python-pip \
+     py3-pip \
      wine \
  && pip install --no-cache-dir --upgrade pip \
- && pip install --no-cache-dir crudini \
+ && pip install --no-cache-dir crudini
 
 EXPOSE 7777/udp \
        27015/udp \
@@ -31,5 +31,4 @@ EXPOSE 7777/udp \
 VOLUME ["/conanexiles"]
 
 ENTRYPOINT ["/entrypoint.sh"]
-cmd ["/usr/bin/supervisord"]
-
+CMD ["/usr/bin/supervisord"]

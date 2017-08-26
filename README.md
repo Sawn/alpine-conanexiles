@@ -1,13 +1,11 @@
-# docker-conanexiles
+# alpine-conanexiles
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/alinmear/docker-conanexiles.svg?style=flat)](https://hub.docker.com/r/alinmear/docker-conanexiles/) 
-[![Github Stars](https://img.shields.io/github/stars/alinmear/docker-conanexiles.svg?style=flat)](https://github.com/alinmear/docker-conanexiles) 
-[![Github Forks](https://img.shields.io/github/forks/alinmear/docker-conanexiles.svg?style=flat?label=github%20forks)](https://github.com/alinmear/docker-conanexiles/)
-[![Gitter](https://img.shields.io/gitter/room/alinmear/docker-conanexiles.svg?style=flat)](https://gitter.im/alinmear/docker-conanexiles)
+[![Github Stars](https://img.shields.io/github/stars/Sawn/alpine-conanexiles.svg?style=flat)](https://github.com/Sawn/alpine-conanexiles) 
+[![Github Forks](https://img.shields.io/github/forks/Sawn/alpine-conanexiles.svg?style=flat?label=github%20forks)](https://github.com/Sawn/alpne-conanexiles/)
 
 Features:
-* Full automatic provisioning of steam and conanexiles dedicated server
-* Autoupdate and restart of the conanexiles server (Now working, thx for contribution @kijdam) 
+* Full automatic provisioning of Steam and ConanExiles dedicated server
+* Autoupdate and restart of the ConanExiles server (Now working, thx for contribution @kijdam) 
 * Full control of every config aspect via Environment variables
 * Templates for first time setup
 
@@ -76,9 +74,6 @@ This Variable defines the profile for the first time setup at container provisio
 
 ## Usage
 
-#### Get latest image
-`docker pull alinmear/docker-conanexiles:latest`
-
 #### Create a `docker-compose.yml` with a named volume
 
 ```yaml
@@ -86,7 +81,7 @@ version: '2'
 
 services:
   conanexiles:
-    image: alinmear/docker-conanexiles
+    build: https://github.com/Sawn/alpine-conanexiles.git
     restart: always
     environment:
         - "CONANEXILES_ServerSettings_ServerSettings_AdminPassword=ThanksForThisSmartSolution"

@@ -2,19 +2,22 @@ version: '2'
 
 services:
   conanexiles:
-    image: alinmear/docker-conanexiles
-    restart: always
+    container_name: conanexiles
+    logging:
+      driver: json-file
+      options:
+        max-size: "2m"
+        max-file: "3"
+    build: https://github.com/Sawn/alpine-conanexiles.git
     environment:
       - "CONANEXILES_ServerSettings_ServerSettings_AdminPassword=ThanksForThisSmartSolution"
       - "CONANEXILES_Engine_OnlineSubSystemSteam_ServerName='My Cool Server'"
       - "CONANEXILES_Engine_OnlineSubSystemSteam_ServerPassword=MySecret"
+      - "CONANEXILES_SERVER_TYPE=pve"
     ports:
         - 7777:7777/udp
         - 7778:7778/udp
         - 27015:27015/udp
     volumes:
-        - data:/conanexiles
-
-volumes:
-    data:
-        driver: local
+        - /home/conan/data:/conanexiles
+    restart: unless-stopped

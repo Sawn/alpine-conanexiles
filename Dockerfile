@@ -1,33 +1,35 @@
-FROM ubuntu:xenial
+FROM alpine:latest
 
-MAINTAINER Paul Steinlechner
+LABEL MAINTAINER="Paul Steinlechner"
 
-ENV TIMEZONE=America/Chicago DEBIAN_FRONTEND=noninteractive
+ENV TIMEZONE=Europe/Paris
 
-RUN dpkg --add-architecture i386 && \
-    apt-get update && \
-    apt-get install -y software-properties-common python-software-properties wget unzip xvfb supervisor crudini && \
-    add-apt-repository ppa:wine/wine-builds && \
-    apt-get update && \
-    apt-get install --no-install-recommends --assume-yes winehq-staging && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    mkdir -p /etc/supervisor/conf.d
-    
-RUN ln -snf /usr/share/zoneinfo/Europe/Vienna /etc/localtime && echo $TIMEZONE > /etc/timezone
+COPY rootfs /
 
-ADD files/entrypoint.sh /entrypoint.sh
-ADD files/steamcmd_setup.sh /usr/bin/steamcmd_setup
-ADD files/install.txt /install.txt
-ADD files/conanexiles_controller.sh /usr/bin/conanexiles_controller
+RUN echo \
+  # replacing default repositories with edge ones
+  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" > /etc/apk/repositories \
+  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
+  && apk add --no-cache \
+     bash \
+     wget \
+     unzip \
+     xvfb \
+     supervisor \
+     python-pip \
+     wine \
+ && pip install --no-cache-dir --upgrade pip \
+ && pip install --no-cache-dir crudini \
 
-ADD files/supervisord.conf /etc/supervisor/supervisord.conf
-ADD files/conanexiles.conf /etc/supervisor/conf.d/conanexiles.conf
-
-RUN chmod +x /usr/bin/steamcmd_setup /usr/bin/conanexiles_controller /entrypoint.sh
-
-EXPOSE 7777/udp 27015/udp 27016/udp 37015/udp 37016/udp  
+EXPOSE 7777/udp
+       27015/udp
+       27016/udp
+       37015/udp
+       37016/udp  
 
 VOLUME ["/conanexiles"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 cmd ["/usr/bin/supervisord"]
+
